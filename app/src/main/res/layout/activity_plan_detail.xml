@@ -1,187 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
 
-    <LinearLayout
-        android:id="@+id/linPDTop"
+    <!--tool bar-->
+    <include
+        android:id="@+id/toolbarPD"
+        layout="@layout/toolbar_main" />
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin1"
-        android:layout_marginRight="@dimen/margin1"
-        android:layout_marginTop="@dimen/margin2"
-        android:orientation="vertical">
-
-
-        <TextView
-            android:id="@+id/txtPDPlanCode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:text="Plan Code : "
-            android:textSize="@dimen/h2" />
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/linPDTop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin2"
-            android:layout_marginRight="@dimen/margin2"
+            android:layout_marginLeft="@dimen/margin1"
+            android:layout_marginRight="@dimen/margin1"
             android:layout_marginTop="@dimen/margin2"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/txtPDStoreCode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin1"
-                android:text="Store Code : "
-                android:textSize="@dimen/h3" />
 
             <TextView
-                android:id="@+id/txtPDStoreName"
+                android:id="@+id/txtPDPlanCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin1"
-                android:text="Store Name : "
-                android:textSize="@dimen/h3" />
+                android:layout_weight="10"
+                android:text="Plan Code : "
+                android:textSize="@dimen/h2" />
 
-            <TextView
-                android:id="@+id/txtPDOutboundDate"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin1"
-                android:text="Outbound Date : "
-                android:textSize="@dimen/h3" />
+                android:layout_marginLeft="@dimen/margin2"
+                android:layout_marginRight="@dimen/margin2"
+                android:layout_marginTop="@dimen/margin2"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/txtPDCartQTY"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin1"
-                android:text="Cart QTY : "
-                android:textSize="@dimen/h3" />
+                <TextView
+                    android:id="@+id/txtPDStoreCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin1"
+                    android:text="Store Code : "
+                    android:textSize="@dimen/h3" />
 
-            <TextView
-                android:id="@+id/txtPDPalletQTY"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin1"
-                android:text="Pallet QTY : "
-                android:textSize="@dimen/h3" />
+                <TextView
+                    android:id="@+id/txtPDStoreName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin1"
+                    android:text="Store Name : "
+                    android:textSize="@dimen/h3" />
 
-            <TextView
-                android:id="@+id/txtPDMetalQTY"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin1"
-                android:text="Metal Cart QTY : "
-                android:textSize="@dimen/h3" />
+                <TextView
+                    android:id="@+id/txtPDOutboundDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin1"
+                    android:text="Outbound Date : "
+                    android:textSize="@dimen/h3" />
+
+                <TextView
+                    android:id="@+id/txtPDCartQTY"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin1"
+                    android:text="Cart QTY : "
+                    android:textSize="@dimen/h3" />
+
+                <TextView
+                    android:id="@+id/txtPDPalletQTY"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin1"
+                    android:text="Pallet QTY : "
+                    android:textSize="@dimen/h3" />
+
+                <TextView
+                    android:id="@+id/txtPDMetalQTY"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin1"
+                    android:text="Metal Cart QTY : "
+                    android:textSize="@dimen/h3" />
+            </LinearLayout>
+
         </LinearLayout>
 
-    </LinearLayout>
-
-
-    <LinearLayout
-    android:id="@+id/linPDBelow"
-    android:layout_below="@+id/linPDTop"
-    android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:layout_marginLeft="@dimen/margin2"
-    android:layout_marginRight="@dimen/margin2"
-    android:layout_marginTop="@dimen/margin2"
-    android:orientation="vertical"
-    android:gravity="center"
-    >
-
-    <Button
-
-        android:id="@+id/btnPDArrived"
-    android:layout_width="180dp"
-    android:layout_height="80dp"
-    android:gravity="center"
-    android:text="Arrived" />
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/linPDFull"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_below="@+id/linPDTop"
-        android:layout_marginLeft="@dimen/margin1"
-        android:layout_marginRight="@dimen/margin1"
-        android:layout_marginTop="@dimen/margin2"
-        android:orientation="vertical"
-
-        >
 
         <LinearLayout
+            android:id="@+id/linPDBelow"
+            android:layout_below="@+id/linPDTop"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="@dimen/margin1"
-            android:layout_marginRight="@dimen/margin1"
+            android:layout_height="200dp"
+            android:layout_marginLeft="@dimen/margin2"
+            android:layout_marginRight="@dimen/margin2"
+            android:layout_marginTop="@dimen/margin2"
+            android:orientation="vertical"
             android:gravity="center"
             >
-            <ImageButton
-                android:background="@android:color/transparent"
-                android:id="@+id/btnPDCameara1"
-                android:src="@drawable/camera"
-                android:layout_width="75dp"
-                android:layout_height="80dp" />
 
-            <ImageButton
-                android:background="@android:color/transparent"
-                android:id="@+id/btnPDCameara2"
-                android:layout_marginLeft="5dp"
-                android:src="@drawable/camera"
-                android:layout_width="75dp"
-                android:layout_height="80dp" />
-            <ImageButton
-                android:background="@android:color/transparent"
-                android:id="@+id/btnPDCameara3"
-                android:layout_marginLeft="5dp"
-                android:src="@drawable/camera"
-                android:layout_width="75dp"
-                android:layout_height="80dp" />
-            <ImageButton
-                android:background="@android:color/transparent"
-                android:id="@+id/btnPDCameara4"
-                android:layout_marginLeft="5dp"
-                android:src="@drawable/camera"
-                android:layout_width="75dp"
-                android:layout_height="80dp" />
+            <Button
+
+                android:id="@+id/btnPDArrived"
+                android:layout_width="180dp"
+                android:layout_height="80dp"
+                android:gravity="center"
+                android:text="Arrived" />
+
         </LinearLayout>
 
-
-        <Button
-            android:id="@+id/btnPDSignature"
-            android:layout_width="150sp"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/btnPDConfirm"
-            android:layout_marginLeft="@dimen/margin1"
-            android:text="Signature" />
-
-        <Button
-            android:id="@+id/btnPDReturn"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/btnPDConfirm"
-            android:layout_alignParentRight="true"
+        <RelativeLayout
+            android:id="@+id/linPDFull"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@+id/linPDTop"
             android:layout_marginLeft="@dimen/margin1"
             android:layout_marginRight="@dimen/margin1"
-            android:text="Return" />
+            android:layout_marginTop="@dimen/margin2"
+            android:orientation="vertical"
 
-        <Button
-            android:id="@+id/btnPDConfirm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="@dimen/margin1"
-            android:gravity="center"
-            android:text="@string/confirm_departure" />
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/margin1"
+                android:layout_marginRight="@dimen/margin1"
+                android:gravity="center"
+                >
+                <ImageButton
+                    android:background="@android:color/transparent"
+                    android:id="@+id/btnPDCameara1"
+                    android:src="@drawable/camera"
+                    android:layout_width="75dp"
+                    android:layout_height="80dp" />
+
+                <ImageButton
+                    android:background="@android:color/transparent"
+                    android:id="@+id/btnPDCameara2"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/camera"
+                    android:layout_width="75dp"
+                    android:layout_height="80dp" />
+                <ImageButton
+                    android:background="@android:color/transparent"
+                    android:id="@+id/btnPDCameara3"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/camera"
+                    android:layout_width="75dp"
+                    android:layout_height="80dp" />
+                <ImageButton
+                    android:background="@android:color/transparent"
+                    android:id="@+id/btnPDCameara4"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/camera"
+                    android:layout_width="75dp"
+                    android:layout_height="80dp" />
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/btnPDSignature"
+                android:layout_width="150sp"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/btnPDConfirm"
+                android:layout_marginLeft="@dimen/margin1"
+                android:text="Signature" />
+
+            <Button
+                android:id="@+id/btnPDReturn"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/btnPDConfirm"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="@dimen/margin1"
+                android:layout_marginRight="@dimen/margin1"
+                android:text="Return" />
+
+            <Button
+                android:id="@+id/btnPDConfirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="@dimen/margin1"
+                android:gravity="center"
+                android:text="@string/confirm_departure" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
 
-</RelativeLayout>
+
+
+
+</LinearLayout>

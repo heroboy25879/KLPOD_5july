@@ -2,19 +2,26 @@ package com.hitachi.com.klpod;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +52,10 @@ public class PlanListActivity extends AppCompatActivity{
 
         vehiclesCode = getIntent().getStringExtra("VehiclesCode");
 
+        //create Toolbar
+        createToolbar();
+
+
         //Get Outbound Date
         getOutboundDate();
 
@@ -63,6 +74,46 @@ public class PlanListActivity extends AppCompatActivity{
         //end Button Click
         endButtonClick();
 
+
+    } // main method
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.itemExit) {
+
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_plan_list,menu);
+        return true;
+    }
+
+    private void createToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbarPL);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.ic_action_home);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //ปุ่ม home คลิก
+            }
+        });
+
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
     }
 
     private void endButtonClick() {
@@ -70,33 +121,61 @@ public class PlanListActivity extends AppCompatActivity{
         endButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String LatitudeArrival = "-",LongitudeArrival = "-";
-                deviceInfo.getLocation();
-                LatitudeArrival = deviceInfo.getLatitude();
-                LongitudeArrival = deviceInfo.getLongitude();
-                JSONArray jsonArray = WebserviceExecute(masterServiceFunction.getUpdateEndJob()
-                        +"/"+ DeliveryNo
-                        +"/"+ LatitudeArrival
-                        +"/"+ LongitudeArrival
-                        +"/"+ vehiclesCode
-                );
-                Log.d("KLTag", "printStackTrace ==> " + jsonArray);
-                try {
-                    JSONObject jsonObject = jsonArray.getJSONObject(0);
-                    if( Boolean.valueOf(jsonObject.getString("Result")))
-                    {
-                        Toast.makeText(PlanListActivity.this, "Job Ended", Toast.LENGTH_SHORT).show();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(PlanListActivity.this);
+                builder.setCancelable(false);
+                builder.setIcon(R.drawable.ic_action_alert);
+                builder.setTitle("Confirm end job");
+                builder.setMessage("Do you want end job?");
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
                     }
-                    else
-                    {
-                        Toast.makeText(PlanListActivity.this, "Job cannot end because :" + jsonObject.getString("MessageError"), Toast.LENGTH_SHORT).show();
+                });
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //end Job
+                        endJob();
+                        dialog.dismiss();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.d("KLTag", "printStackTrace ==> " + e.getMessage());
-                }
-            }
+                });
+                builder.show();
+
+
+
+
+            }// onclick
         });
+    }
+
+    private void endJob() {
+        String LatitudeArrival = "-",LongitudeArrival = "-";
+        deviceInfo.getLocation();
+        LatitudeArrival = deviceInfo.getLatitude();
+        LongitudeArrival = deviceInfo.getLongitude();
+        JSONArray jsonArray = WebserviceExecute(masterServiceFunction.getUpdateEndJob()
+                +"/"+ DeliveryNo
+                +"/"+ LatitudeArrival
+                +"/"+ LongitudeArrival
+                +"/"+ vehiclesCode
+        );
+        Log.d("KLTag", "printStackTrace ==> " + jsonArray);
+        try {
+            JSONObject jsonObject = jsonArray.getJSONObject(0);
+            if( Boolean.valueOf(jsonObject.getString("Result")))
+            {
+                Toast.makeText(PlanListActivity.this, "Job Ended", Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                Toast.makeText(PlanListActivity.this, "Job cannot end because :" + jsonObject.getString("MessageError"), Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d("KLTag", "printStackTrace ==> " + e.getMessage());
+        }
     }
 
     private void startButtonClick() {
@@ -104,35 +183,62 @@ public class PlanListActivity extends AppCompatActivity{
         StartJobButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String LatitudeDeparture = "-",LongitudeDeparture = "-";
-                deviceInfo.getLocation();
-                LatitudeDeparture = deviceInfo.getLatitude();
-                LongitudeDeparture = deviceInfo.getLongitude();
-                JSONArray jsonArray = WebserviceExecute(masterServiceFunction.getUpdateStartJob()
-                        +"/"+ DeliveryNo
-                        +"/"+ LatitudeDeparture
-                        +"/"+ LongitudeDeparture
-                        +"/"+ deviceInfo.IMEI()
-                        +"/"+ vehiclesCode
-                );
 
-                try {
-                    JSONObject jsonObject = jsonArray.getJSONObject(0);
-                    if( Boolean.valueOf(jsonObject.getString("Result")))
-                    {
-                        StartJobButton.setVisibility(View.GONE);
-                        Toast.makeText(PlanListActivity.this, "Job Started", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(PlanListActivity.this);
+                builder.setCancelable(false);
+                builder.setIcon(R.drawable.ic_action_alert);
+                builder.setTitle("Confirm start job");
+                builder.setMessage("Do you want start job?");
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
                     }
-                    else
-                    {
-                        Toast.makeText(PlanListActivity.this, "Job cannot start because :" + jsonObject.getString("MessageError"), Toast.LENGTH_SHORT).show();
+                });
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //start Job
+                        startJob(StartJobButton);
+                        dialog.dismiss();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                });
+                builder.show();
 
-            }
+
+
+
+            }// on click
         });
+    }
+
+    private void startJob(Button startJobButton) {
+        String LatitudeDeparture = "-",LongitudeDeparture = "-";
+        deviceInfo.getLocation();
+        LatitudeDeparture = deviceInfo.getLatitude();
+        LongitudeDeparture = deviceInfo.getLongitude();
+        JSONArray jsonArray = WebserviceExecute(masterServiceFunction.getUpdateStartJob()
+                +"/"+ DeliveryNo
+                +"/"+ LatitudeDeparture
+                +"/"+ LongitudeDeparture
+                +"/"+ deviceInfo.IMEI()
+                +"/"+ vehiclesCode
+        );
+
+        try {
+            JSONObject jsonObject = jsonArray.getJSONObject(0);
+            if( Boolean.valueOf(jsonObject.getString("Result")))
+            {
+                startJobButton.setVisibility(View.GONE);
+                Toast.makeText(PlanListActivity.this, "Job Started", Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                Toast.makeText(PlanListActivity.this, "Job cannot start because :" + jsonObject.getString("MessageError"), Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void checkButtonEndJob() {
@@ -222,6 +328,7 @@ public class PlanListActivity extends AppCompatActivity{
                             intent.putExtra("VehiclesCode", vehiclesCode);
                             intent.putExtra("DeliveryNo", DeliveryNo);
                             startActivity(intent);
+                            finish();
                         } else {
                             masterAlert.normalDialog("Warning", "Please press Start Job button.");
                         }
@@ -252,9 +359,9 @@ public class PlanListActivity extends AppCompatActivity{
                 TextView carLicenseTextView = findViewById(R.id.txtPLCarLicense);
                 TextView planCodeTextView = findViewById(R.id.txtPLPlanCode);
 
-                String driverName = driverNameTextView.getText() + (jsonObject.getString("DriverName").equals("null") ? "" : jsonObject.getString("DriverName"));
-                String carLicense = carLicenseTextView.getText() + (jsonObject.getString("VehiclesName").equals("null") ? "" : jsonObject.getString("VehiclesName"));
-                String planCode = planCodeTextView.getText() + (jsonObject.getString("TripNo").equals("null") ? "" : jsonObject.getString("TripNo"));
+                String driverName = getResources().getString(R.string.pl_driver_name) + (jsonObject.getString("DriverName").equals("null") ? "" : jsonObject.getString("DriverName"));
+                String carLicense = getResources().getString(R.string.pl_car_license) + (jsonObject.getString("VehiclesName").equals("null") ? "" : jsonObject.getString("VehiclesName"));
+                String planCode = getResources().getString(R.string.pl_plan_code) + (jsonObject.getString("TripNo").equals("null") ? "" : jsonObject.getString("TripNo"));
                 DeliveryNo = jsonObject.getString("DeliveryNo");
 
                 driverNameTextView.setText(driverName);
@@ -280,10 +387,42 @@ public class PlanListActivity extends AppCompatActivity{
             JSONArray jsonArray = WebserviceExecute(masterServiceFunction.getGetOutboundDate()
                     +"/"+ vehiclesCode);
             Log.d("KLTag", "OutboundDate ==> " + jsonArray);
-            JSONObject jsonObject = jsonArray.getJSONObject(0);
-            Button outBoundDateButton = findViewById(R.id.btnPLOutboundDate);
-            outBoundDateButton.setText(jsonObject.getString("OutboundDate"));
-            outBoundDate = jsonObject.getString("OutboundDateFullFormat");
+
+            String[] outBoundDateStrings = new String[jsonArray.length()];
+            final String[] OutboundDateFullFormatStrings = new String[jsonArray.length()];
+            for (int i = 0;i<jsonArray.length() ; i++)
+            {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                outBoundDateStrings[i] =  jsonObject.getString("OutboundDate");
+                OutboundDateFullFormatStrings[i] = jsonObject.getString("OutboundDateFullFormat");
+
+            }
+            outBoundDate = OutboundDateFullFormatStrings[0];
+
+            Spinner spinner = findViewById(R.id.spinerPLOutboundDate);
+            ArrayAdapter<String>  stringArrayAdapter = new ArrayAdapter<String>(PlanListActivity.this,
+                    android.R.layout.simple_list_item_1,
+                    outBoundDateStrings);
+            spinner.setAdapter(stringArrayAdapter);
+
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    outBoundDate = OutboundDateFullFormatStrings[position];
+
+                    // ทำต่อด้วย
+                    getDelivery();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                    outBoundDate = OutboundDateFullFormatStrings[0];
+                }
+            });
+
+//            Button outBoundDateButton = findViewById(R.id.btnPLOutboundDate);
+////            outBoundDateButton.setText(jsonObject.getString("OutboundDate"));
+     //       outBoundDate = OutboundDateFullFormatStrings[0];
 
         } catch (Exception e) {
             e.printStackTrace();

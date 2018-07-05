@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -43,6 +46,10 @@ public class PlanDetailActivity extends AppCompatActivity{
         vehiclesCode = getIntent().getStringExtra("VehiclesCode");
         ownerCode = getIntent().getStringExtra("OwnerCode");
         DeliveryNo = getIntent().getStringExtra("DeliveryNo");
+
+        //create Toolbar
+        createToolbar();
+
         //get Delivery Detail
         getDeliveryDetail();
 
@@ -57,6 +64,58 @@ public class PlanDetailActivity extends AppCompatActivity{
 
         //confirm Button Click
         confirmButtonClick();
+    }//main
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.itemExit) {
+
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_plan_list,menu);
+        return true;
+    }
+
+
+    private void createToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbarPD);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.ic_action_home);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //ปุ่ม home คลิก
+                openPlanListActivity();
+            }
+        });
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+
+        openPlanListActivity();
+
+    }
+
+    private void  openPlanListActivity()
+    {
+        Intent intent = new Intent( PlanDetailActivity.this,PlanListActivity.class);
+        intent.putExtra("VehiclesCode", vehiclesCode);
+        startActivity(intent);
+        finish();
+
     }
 
     private void confirmButtonClick() {

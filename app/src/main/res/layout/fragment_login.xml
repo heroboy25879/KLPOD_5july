@@ -5,9 +5,11 @@
 
     <!--Content-->
     <LinearLayout
+        android:background="@drawable/bg_board2"
+        android:padding="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="50dp"
+        android:layout_margin="30dp"
         android:orientation="vertical">
 
         <!--Logo-->
@@ -15,21 +17,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:src="@drawable/logo" />
+            android:src="@drawable/logonew" />
 
         <!--User Edittext-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+
             android:orientation="horizontal">
 
-            <!--Icon-->
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_action_user" />
+
 
             <!--TxtField-->
             <EditText
@@ -37,6 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="User :"
+                android:background="@drawable/groupuser"
                 android:inputType="text" />
         </LinearLayout>
 
@@ -44,18 +42,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+
             android:orientation="horizontal">
 
-            <!--Icon-->
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_action_password" />
+
 
             <!--TxtField-->
             <EditText
+                android:background="@drawable/grouppass"
                 android:id="@+id/edtFLogin_Password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -65,13 +59,15 @@
 
         <!--Login-->
         <Button
+            android:background="@drawable/btnlogin"
             android:id="@+id/btnFLogin_Login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:text="LOGIN"
+            android:textColor="#ffffff"
             android:textStyle="bold" />
     </LinearLayout>
 
