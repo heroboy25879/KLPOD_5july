@@ -83,6 +83,7 @@ public class RetrunCartActivity  extends Activity{
 
                 }
                 Toast.makeText(RetrunCartActivity.this, "Return result :\n" + result, Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
     }

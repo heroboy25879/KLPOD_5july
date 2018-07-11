@@ -1,139 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!--tool bar-->
-    <include
-        android:id="@+id/toolbarPL"
-        layout="@layout/toolbar_main" />
-
-
-    <RelativeLayout
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:alpha="0.8"
+        android:scaleType="fitXY"
+        android:src="@drawable/backg"
 
-        <!--content-->
-        <LinearLayout
-            android:id="@+id/linTopDetail"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!--tool bar-->
+        <include
+            android:id="@+id/toolbarPL"
+            layout="@layout/toolbar_main" />
+
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin2"
-            android:layout_marginRight="@dimen/margin2"
-            android:layout_marginTop="@dimen/margin2"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/txtPLDriverName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin1"
-                android:layout_weight="10"
-                android:text="@string/pl_driver_name"
-                android:textSize="@dimen/h3" />
-
-            <TextView
-                android:id="@+id/txtPLCarLicense"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin1"
-                android:layout_weight="10"
-                android:text="@string/pl_car_license"
-                android:textSize="@dimen/h3" />
-
+            <!--content-->
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin1"
-                    android:layout_weight="10"
-                    android:text="Date : "
-                    android:textSize="@dimen/h3" />
-
-                <Spinner
-                    android:id="@+id/spinerPLOutboundDate"
-
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/txtPLPlanCode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin1"
-                android:layout_weight="10"
-                android:text="@string/pl_plan_code"
-                android:textSize="@dimen/h3" />
-        </LinearLayout>
-
-        <LinearLayout
-
-            android:id="@+id/linBelow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/linTopDetail"
-
-            android:layout_marginLeft="@dimen/margin2"
-
-            android:layout_marginRight="@dimen/margin2"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btnPLStartJob"
+                android:id="@+id/linTopDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin2"
                 android:layout_marginRight="@dimen/margin2"
-                android:text="Start job" />
+                android:background="@drawable/bglist"
 
-            <Button
-                android:id="@+id/btnPLEndJob"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin2"
-                android:layout_marginRight="@dimen/margin2"
-                android:text="End job" />
+                android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginBottom="@dimen/margin1"
+                        android:text="@string/pl_driver_name"
+                        android:textColor="#ffffff"
+                        android:textSize="@dimen/h3"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtPLDriverName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin1"
+                        android:textColor="#ffffff"
+                        android:textSize="@dimen/h3" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin1"
-                    android:layout_weight="10"
-                    android:text="Location"
-                    android:textSize="@dimen/h3" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pl_car_license"
+                        android:textColor="#ffffff"
+
+                        android:textSize="@dimen/h3"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtPLCarLicense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ffffff"
+                        android:textSize="@dimen/h3" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_marginBottom="@dimen/margin1"
-                    android:layout_weight="10"
-                    android:text="Time"
-                    android:textSize="@dimen/h3" />
+                    android:gravity="center_vertical"
+
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Date : "
+                        android:textColor="#ffffff"
+
+                        android:textSize="@dimen/h3"
+                        android:textStyle="bold" />
+
+                    <Spinner
+                        android:id="@+id/spinerPLOutboundDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:background="@drawable/spinerdate"
+                        android:gravity="center" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pl_plan_code"
+                        android:textColor="#ffffff"
+                        android:textSize="@dimen/h3"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtPLPlanCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ffffff"
+                        android:textSize="@dimen/h3" />
+                </LinearLayout>
+
             </LinearLayout>
 
-            <ListView
-                android:id="@+id/lvPLPlanList"
+            <LinearLayout
+
+                android:id="@+id/linBelow"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linTopDetail"
+
+                android:layout_marginLeft="@dimen/margin2"
+
+                android:layout_marginRight="@dimen/margin2"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btnPLStartJob"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin2"
+                    android:layout_marginRight="@dimen/margin2"
+                    android:background="@drawable/btnstart"
+                    android:text="Start job"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/btnPLEndJob"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin2"
+                    android:layout_marginRight="@dimen/margin2"
+                    android:background="@drawable/btnlogin"
+                    android:text="End job"
+                    android:textColor="#ffffff" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bgtab"
+                    android:orientation="horizontal"
+
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10"
+                        android:text="       Location"
+                        android:textSize="@dimen/h3"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_weight="10"
+                        android:text="Time            "
+                        android:textSize="@dimen/h3"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <ListView
+                    android:id="@+id/lvPLPlanList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bglistlocation">
 
 
-            </ListView>
+                </ListView>
 
-        </LinearLayout>
+            </LinearLayout>
 
-    </RelativeLayout>
+        </RelativeLayout>
 
 
-</LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

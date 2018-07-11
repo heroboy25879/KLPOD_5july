@@ -50,7 +50,7 @@ public class PlanListAdapter extends BaseAdapter{
         locationTextView.setText(locationStrings[position]);
         timeTextView.setText(timeStrings[position]);
         if(Boolean.valueOf(departureCheckStrings[position])) {
-            view.setBackgroundColor(Color.GRAY);
+            view.setBackgroundColor(Color.DKGRAY);
         }
         return view;
     }

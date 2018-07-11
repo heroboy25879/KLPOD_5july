@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
+import android.util.Base64;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,13 +22,19 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.hitachi.com.klpod.Utility.FuncDBAccess;
+import com.hitachi.com.klpod.Utility.FuncUploadImage;
 import com.hitachi.com.klpod.Utility.MasterAlert;
 import com.hitachi.com.klpod.Utility.MasterServiceFunction;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class SignatureActivity extends Activity{
+
 
     MasterServiceFunction masterServiceFunction = new MasterServiceFunction();
     MasterAlert masterAlert = new MasterAlert(this);
@@ -36,7 +43,8 @@ public class SignatureActivity extends Activity{
     signature mSignature;
     View mView;
     private Bitmap mBitmap;
-    String deliveryDetailNo,vehiclesCode;
+    String deliveryDetailNo,vehiclesCode,DeliveryNo;
+    String nameImage;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +52,7 @@ public class SignatureActivity extends Activity{
 
         deliveryDetailNo = getIntent().getStringExtra("DeliveryDetailNo");
         vehiclesCode = getIntent().getStringExtra("vehiclesCode");
+        DeliveryNo = getIntent().getStringExtra("DeliveryNo");
 
         saveButton = findViewById(R.id.btnSNSave);
         clearButton = findViewById(R.id.btnSNClear);
@@ -86,28 +95,41 @@ public class SignatureActivity extends Activity{
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mSignature.save(mView);
+
 
                 EditText nameEditText = findViewById(R.id.edtSNName);
                 if(!nameEditText.getText().toString().trim().equals("")) {
-                    JSONArray jsonArray = WebserviceExecute(masterServiceFunction.getUpdateReceiverName()
-                            + "/" + deliveryDetailNo
-                            + "/" + nameEditText.getText()
-                            + "/" + vehiclesCode
-                    );
+                    String resultUploadSign = mSignature.save(mView);
+                    if(Boolean.valueOf(resultUploadSign)) {
+                        JSONArray jsonArray = WebserviceExecute(masterServiceFunction.getUpdateReceiverName()
+                                + "/" + deliveryDetailNo
+                                + "/" + nameEditText.getText()
+                                + "/" + vehiclesCode
+                        );
 
-                    try {
-                        JSONObject jsonObject = jsonArray.getJSONObject(0);
-                        if (Boolean.valueOf(jsonObject.getString("Result"))) {
-                            Toast.makeText(SignatureActivity.this, "Signature save", Toast.LENGTH_SHORT).show();
-                            finish();
-                        } else {
+                        try {
+                            JSONObject jsonObject = jsonArray.getJSONObject(0);
+                            if (Boolean.valueOf(jsonObject.getString("Result"))) {
 
-                            Toast.makeText(SignatureActivity.this, "Cannot save data because :" + jsonObject.getString("MessageError"), Toast.LENGTH_SHORT).show();
+                                //insert name of image
+                                WebserviceExecute(masterServiceFunction.getInsertImage()
+                                        +"/"+ deliveryDetailNo
+                                        +"/"+ 5
+                                        +"/"+ nameImage
+                                        +"/"+ vehiclesCode);
+
+                                Toast.makeText(SignatureActivity.this, "Signature save", Toast.LENGTH_SHORT).show();
+                                finish();
+                            } else {
+
+                                Toast.makeText(SignatureActivity.this, "Cannot save data because :" + jsonObject.getString("MessageError"), Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
+                    else
+                        Toast.makeText(SignatureActivity.this, "Signature cannot upload.", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
@@ -139,7 +161,7 @@ public class SignatureActivity extends Activity{
         }
 
 
-        public void save(View v) {
+        public String save(View v) {
             Log.v("log_tag", "Width: " + v.getWidth());
             Log.v("log_tag", "Height: " + v.getHeight());
             if (mBitmap == null) {
@@ -152,13 +174,28 @@ public class SignatureActivity extends Activity{
                     v.draw(canvas);
 //                    mBitmap.compress(Bitmap.CompressFormat.PNG, 90, mFileOutStream);
                     //   String url = Images.Media.insertImage(getContentResolver(), mBitmap, "title", null);
-                    Log.v("KLTag", "Bitmap=++++++++++++++: " + mBitmap);
 
+                    Bitmap bitmap = mBitmap ;
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
+                    byte[] data2 = stream.toByteArray();
+                    String encodedImage = Base64.encodeToString(data2, Base64.DEFAULT);
 
+                    Log.v("KLTag", "Bitmap=++++++++++++++: " + encodedImage.length());
+
+                    String dateStamp = new SimpleDateFormat("ddMMyyyy").format(Calendar.getInstance().getTime());
+                    nameImage = DeliveryNo + "_5_" + dateStamp;
+
+                    FuncUploadImage funcUploadImage = new FuncUploadImage(SignatureActivity.this,encodedImage,nameImage);
+                    funcUploadImage.execute();
+                    return  funcUploadImage.get();
                 } catch (Exception e) {
                     Log.v("KLTag", e.toString());
+                    return "";
                 }
             }//end if
+            else
+                return "";
         }
 
 

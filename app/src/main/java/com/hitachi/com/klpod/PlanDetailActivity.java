@@ -1,16 +1,23 @@
 package com.hitachi.com.klpod;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,13 +25,22 @@ import android.widget.Toast;
 
 import com.hitachi.com.klpod.Utility.DeviceInfo;
 import com.hitachi.com.klpod.Utility.FuncDBAccess;
+import com.hitachi.com.klpod.Utility.FuncUploadImage;
 import com.hitachi.com.klpod.Utility.MasterAlert;
 import com.hitachi.com.klpod.Utility.MasterServiceFunction;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.Signature;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class PlanDetailActivity extends AppCompatActivity{
 
@@ -36,6 +52,8 @@ public class PlanDetailActivity extends AppCompatActivity{
     String vehiclesCode;
     String StoreName,StoreCode;
     String DeliveryNo;
+    String[] imageName = new String[4];
+    ImageButton camera1ImageButton,camera2ImageButton,camera3ImageButton,camera4ImageButton;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +64,10 @@ public class PlanDetailActivity extends AppCompatActivity{
         vehiclesCode = getIntent().getStringExtra("VehiclesCode");
         ownerCode = getIntent().getStringExtra("OwnerCode");
         DeliveryNo = getIntent().getStringExtra("DeliveryNo");
-
+        imageName[0] = "";
+        imageName[1] = "";
+        imageName[2] = "";
+        imageName[3] = "";
         //create Toolbar
         createToolbar();
 
@@ -64,13 +85,170 @@ public class PlanDetailActivity extends AppCompatActivity{
 
         //confirm Button Click
         confirmButtonClick();
+
+        //camera 1 Click
+        camera1Click();
+        //camera 2 Click
+        camera2Click();
+        //camera 3 Click
+        camera3Click();
+        //camera 4 Click
+        camera4Click();
     }//main
+
+    private void camera4Click() {
+        camera4ImageButton = findViewById(R.id.btnPDCamera4);
+        camera4ImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 456);
+            }
+        });
+    }
+
+    private void camera3Click() {
+        camera3ImageButton = findViewById(R.id.btnPDCamera3);
+        camera3ImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 345);
+            }
+        });
+    }
+
+    private void camera2Click() {
+        camera2ImageButton = findViewById(R.id.btnPDCamera2);
+        camera2ImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 234);
+            }
+        });
+    }
+
+    private void camera1Click() {
+        camera1ImageButton = findViewById(R.id.btnPDCamera1);
+        camera1ImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 123);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            String dateStamp = new SimpleDateFormat("ddMMyyyy").format(Calendar.getInstance().getTime());
+            String nameImage = "";
+            Uri selectedImage = data.getData();
+            Bundle bundle = data.getExtras();
+            Bitmap bitmap = (Bitmap) bundle.get("data");
+            switch (requestCode)
+            {
+                case 123 : camera1ImageButton.setImageBitmap(bitmap);
+                    nameImage = DeliveryNo + "_1_" + dateStamp;
+                    break;
+                case 234 : camera2ImageButton.setImageBitmap(bitmap);
+                    nameImage = DeliveryNo + "_2_" + dateStamp;
+                    break;
+                case 345 : camera3ImageButton.setImageBitmap(bitmap);
+                    nameImage = DeliveryNo + "_3_" + dateStamp;
+                    break;
+                case 456 : camera4ImageButton.setImageBitmap(bitmap);
+                    nameImage = DeliveryNo + "_4_" + dateStamp;
+                    break;
+
+            }
+
+            Bitmap originBitmap = null;
+
+            InputStream imageStream;
+            try {
+                imageStream = getContentResolver().openInputStream(
+                        selectedImage);
+                originBitmap = BitmapFactory.decodeStream(imageStream);
+
+            } catch (FileNotFoundException e) {
+            }
+
+            //Bitmap originBitmap2 = Bitmap.createScaledBitmap(originBitmap,(int)(originBitmap.getWidth()*0.9), (int)(originBitmap.getHeight()*0.9), true);
+            if (originBitmap.getHeight() < originBitmap.getWidth()) {
+                originBitmap = rotateBitmap(originBitmap);
+            }
+            Bitmap originBitmap2 = Bitmap.createScaledBitmap(originBitmap,489, 652, true);
+
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            originBitmap2.compress(Bitmap.CompressFormat.JPEG, 90, stream);
+            byte[] data2 = stream.toByteArray();
+            String encodedImage = Base64.encodeToString(data2, Base64.DEFAULT);
+
+            try {
+                FuncUploadImage funcUploadImage = new FuncUploadImage(PlanDetailActivity.this,encodedImage,nameImage);
+                funcUploadImage.execute();
+                String serverreponse = funcUploadImage.get();
+                if(serverreponse.equals("true"))
+                {
+                    switch (requestCode)
+                    {
+                        case 123 : imageName[0] = nameImage;
+                            break;
+                        case 234 : imageName[1] = nameImage;
+                            break;
+                        case 345 : imageName[2] = nameImage;
+                            break;
+                        case 456 : imageName[3] = nameImage;
+                            break;
+                    }
+                }
+                else
+                {
+                    Toast.makeText(PlanDetailActivity.this,"Photo save fail.",Toast.LENGTH_SHORT).show();
+                    switch (requestCode)
+                    {
+                        case 123 : camera1ImageButton.setImageResource(R.drawable.camera);
+                            break;
+                        case 234 : camera2ImageButton.setImageResource(R.drawable.camera);
+                            break;
+                        case 345 : camera3ImageButton.setImageResource(R.drawable.camera);
+                            break;
+                        case 456 : camera4ImageButton.setImageResource(R.drawable.camera);
+                            break;
+                    }
+                }
+            } catch (Exception e) {
+            }
+
+
+        }
+    }
+
+    private Bitmap rotateBitmap(Bitmap src) {
+
+        // create new matrix
+        Matrix matrix = new Matrix();
+        // setup rotation degree
+        matrix.postRotate(90);
+        Bitmap bmp = Bitmap.createBitmap(src, 0, 0, src.getWidth(), src.getHeight(), matrix, true);
+        return bmp;
+
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.itemExit) {
 
-            finish();
+            JSONArray jsonArray = WebserviceExecute(masterServiceFunction.getUpdateUserlogout()
+                    +"/"+ deviceInfo.IMEI());
+
+            if(jsonArray.length() > 0) {
+                Toast.makeText(PlanDetailActivity.this,"Logout.",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(PlanDetailActivity.this, MainActivity.class));
+            }
             return true;
         }
 
@@ -82,7 +260,6 @@ public class PlanDetailActivity extends AppCompatActivity{
         getMenuInflater().inflate(R.menu.menu_plan_list,menu);
         return true;
     }
-
 
     private void createToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbarPD);
@@ -99,7 +276,6 @@ public class PlanDetailActivity extends AppCompatActivity{
             }
         });
     }
-
 
     @Override
     public void onBackPressed() {
@@ -133,6 +309,16 @@ public class PlanDetailActivity extends AppCompatActivity{
                     JSONObject jsonObject = jsonArray.getJSONObject(0);
                     if( Boolean.valueOf(jsonObject.getString("Result")))
                     {
+                        for (int i = 0 ; i <4 ; i++)
+                        {
+                            //insert name of image
+                            WebserviceExecute(masterServiceFunction.getInsertImage()
+                                    +"/"+ DeliveryDetailNo
+                                    +"/"+ (i+1)
+                                    +"/"+ imageName[i]
+                                    +"/"+ vehiclesCode);
+
+                        }
                         setLayoutVisibility("false");
                         Toast.makeText(PlanDetailActivity.this, "Departed", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(PlanDetailActivity.this,PlanListActivity.class);
@@ -178,6 +364,7 @@ public class PlanDetailActivity extends AppCompatActivity{
             public void onClick(View v) {
                 Intent intent = new Intent(PlanDetailActivity.this,SignatureActivity.class);
                 intent.putExtra("DeliveryDetailNo",DeliveryDetailNo);
+                intent.putExtra("DeliveryNo",DeliveryNo);
                 intent.putExtra("vehiclesCode",vehiclesCode);
                 startActivity(intent);
             }
@@ -191,7 +378,7 @@ public class PlanDetailActivity extends AppCompatActivity{
                 @Override
                 public void onClick(View v) {
                     String Latitude = "-",Longitude = "-";
-                    deviceInfo.getLocation();
+
                     Latitude = deviceInfo.getLatitude();
                     Longitude = deviceInfo.getLongitude();
 

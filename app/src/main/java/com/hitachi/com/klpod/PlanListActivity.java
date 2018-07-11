@@ -25,6 +25,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hitachi.com.klpod.Fragment.LoginFragment;
 import com.hitachi.com.klpod.Utility.DeviceInfo;
 import com.hitachi.com.klpod.Utility.FuncDBAccess;
 import com.hitachi.com.klpod.Utility.MasterAlert;
@@ -81,7 +82,13 @@ public class PlanListActivity extends AppCompatActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.itemExit) {
 
-            finish();
+            JSONArray jsonArray = WebserviceExecute(masterServiceFunction.getUpdateUserlogout()
+                    +"/"+ deviceInfo.IMEI());
+
+            if(jsonArray.length() > 0) {
+                Toast.makeText(PlanListActivity.this,"Logout.",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(PlanListActivity.this, MainActivity.class));
+            }
             return true;
         }
 
@@ -152,7 +159,6 @@ public class PlanListActivity extends AppCompatActivity{
 
     private void endJob() {
         String LatitudeArrival = "-",LongitudeArrival = "-";
-        deviceInfo.getLocation();
         LatitudeArrival = deviceInfo.getLatitude();
         LongitudeArrival = deviceInfo.getLongitude();
         JSONArray jsonArray = WebserviceExecute(masterServiceFunction.getUpdateEndJob()
@@ -214,7 +220,6 @@ public class PlanListActivity extends AppCompatActivity{
 
     private void startJob(Button startJobButton) {
         String LatitudeDeparture = "-",LongitudeDeparture = "-";
-        deviceInfo.getLocation();
         LatitudeDeparture = deviceInfo.getLatitude();
         LongitudeDeparture = deviceInfo.getLongitude();
         JSONArray jsonArray = WebserviceExecute(masterServiceFunction.getUpdateStartJob()
@@ -352,16 +357,16 @@ public class PlanListActivity extends AppCompatActivity{
                     +"/"+ outBoundDate);
             Log.d("KLTag", "Delivery ==> " + jsonArray);
 
-            if(jsonArray.length() > 0) {
+            if(jsonArray != null && jsonArray.length() > 0 ) {
                 JSONObject jsonObject = jsonArray.getJSONObject(0);
 
                 TextView driverNameTextView = findViewById(R.id.txtPLDriverName);
                 TextView carLicenseTextView = findViewById(R.id.txtPLCarLicense);
                 TextView planCodeTextView = findViewById(R.id.txtPLPlanCode);
 
-                String driverName = getResources().getString(R.string.pl_driver_name) + (jsonObject.getString("DriverName").equals("null") ? "" : jsonObject.getString("DriverName"));
-                String carLicense = getResources().getString(R.string.pl_car_license) + (jsonObject.getString("VehiclesName").equals("null") ? "" : jsonObject.getString("VehiclesName"));
-                String planCode = getResources().getString(R.string.pl_plan_code) + (jsonObject.getString("TripNo").equals("null") ? "" : jsonObject.getString("TripNo"));
+                String driverName = " " + (jsonObject.getString("DriverName").equals("null") ? "" : jsonObject.getString("DriverName"));
+                String carLicense = " " + (jsonObject.getString("VehiclesName").equals("null") ? "" : jsonObject.getString("VehiclesName"));
+                String planCode =  " " +(jsonObject.getString("TripNo").equals("null") ? "" : jsonObject.getString("TripNo"));
                 DeliveryNo = jsonObject.getString("DeliveryNo");
 
                 driverNameTextView.setText(driverName);
@@ -373,6 +378,7 @@ public class PlanListActivity extends AppCompatActivity{
             }
             else
             {
+
                 masterAlert.normalDialog("Warning","No plan for this truck!!");
 
             }

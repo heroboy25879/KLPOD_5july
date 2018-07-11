@@ -10,8 +10,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="30dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center">
 
+        <TextView
+
+            android:textColor="#737171"
+            android:textSize="40dp"
+            android:text="Welcome to"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+
+            android:textColor="#8d8b8b"
+            android:textSize="30dp"
+            android:text="POD"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
         <!--Logo-->
         <ImageView
             android:layout_width="match_parent"
@@ -30,6 +47,7 @@
 
             <!--TxtField-->
             <EditText
+                android:textColor="#8d8b8b"
                 android:id="@+id/edtFLogin_User"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -49,6 +67,7 @@
 
             <!--TxtField-->
             <EditText
+                android:textColor="#8d8b8b"
                 android:background="@drawable/grouppass"
                 android:id="@+id/edtFLogin_Password"
                 android:layout_width="match_parent"

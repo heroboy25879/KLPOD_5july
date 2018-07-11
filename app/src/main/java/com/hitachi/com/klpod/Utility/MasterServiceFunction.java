@@ -2,9 +2,14 @@ package com.hitachi.com.klpod.Utility;
 
 public class MasterServiceFunction {
     // on Cloud
-    private String urlService = "http://203.154.103.42/KLwebservice/";
-    //private String urlService = "http://172.23.191.13/KLwebservice/";
+    //private String urlService = "http://203.154.103.42/KLwebservice/";
+    private String urlService = "http://172.23.191.13/KLwebservice/";
     private String methodService = "MethodService.svc";
+
+    public String getUrlService() {
+        return urlService;
+    }
+
     //about url web service
     // /GetUserLogin/{pUser}/{pPassword}/{pIMEI}
     private String GetUserLogin = urlService + methodService + "/GetUserLogin";
@@ -32,6 +37,18 @@ public class MasterServiceFunction {
     private String UpdateReceiverName = urlService + methodService + "/UpdateReceiverName";
     ///UpdateStartJob/{pDeliveryNo}/{pUserUpdate}
     private String UpdateEndJob = urlService + methodService + "/UpdateEndJob";
+    ///UpdateStartJob/{pIMEI}
+    private String UpdateUserlogout = urlService + methodService + "/UpdateUserlogout";
+    ///InsertImage/{pDeliveryDetailNo}/{pImageSequence}/{pImageName}/{pUserCreate}
+    private String InsertImage = urlService + methodService + "/InsertImage";
+
+    public String getInsertImage() {
+        return InsertImage;
+    }
+
+    public String getUpdateUserlogout() {
+        return UpdateUserlogout;
+    }
 
     public String getUpdateEndJob() {
         return UpdateEndJob;

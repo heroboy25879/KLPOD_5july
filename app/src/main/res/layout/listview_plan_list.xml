@@ -11,21 +11,23 @@
         android:orientation="horizontal">
 
         <TextView
+            android:textColor="#ffffff"
             android:id="@+id/txtLPLLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:layout_marginLeft="@dimen/margin2"
+            android:layout_marginLeft="3dp"
             android:text="Location"
             android:textSize="@dimen/h3" />
 
         <TextView
+            android:textColor="#ffffff"
             android:id="@+id/txtLPLTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="80dp"
+            android:layout_marginRight="20dp"
             android:layout_marginLeft="@dimen/margin2"
             android:text="Time"
             android:textSize="@dimen/h3" />

@@ -136,28 +136,28 @@
                 >
                 <ImageButton
                     android:background="@android:color/transparent"
-                    android:id="@+id/btnPDCameara1"
+                    android:id="@+id/btnPDCamera1"
                     android:src="@drawable/camera"
                     android:layout_width="75dp"
                     android:layout_height="80dp" />
 
                 <ImageButton
                     android:background="@android:color/transparent"
-                    android:id="@+id/btnPDCameara2"
+                    android:id="@+id/btnPDCamera2"
                     android:layout_marginLeft="5dp"
                     android:src="@drawable/camera"
                     android:layout_width="75dp"
                     android:layout_height="80dp" />
                 <ImageButton
                     android:background="@android:color/transparent"
-                    android:id="@+id/btnPDCameara3"
+                    android:id="@+id/btnPDCamera3"
                     android:layout_marginLeft="5dp"
                     android:src="@drawable/camera"
                     android:layout_width="75dp"
                     android:layout_height="80dp" />
                 <ImageButton
                     android:background="@android:color/transparent"
-                    android:id="@+id/btnPDCameara4"
+                    android:id="@+id/btnPDCamera4"
                     android:layout_marginLeft="5dp"
                     android:src="@drawable/camera"
                     android:layout_width="75dp"
