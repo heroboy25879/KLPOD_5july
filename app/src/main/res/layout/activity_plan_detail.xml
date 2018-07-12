@@ -98,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView
-                        te
+                        android:textStyle="bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/margin1"
@@ -113,40 +113,66 @@
                 </LinearLayout>
 
 
-
-                <TextView
-                    android:id="@+id/txtPDCartQTY"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin1"
-                    android:text="Cart QTY : "
-                    android:textSize="@dimen/h3" />
+                    android:orientation="horizontal">
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin1"
+                        android:text="Cart QTY : "
+                        android:textSize="@dimen/h3" />
+                    <TextView
+                        android:id="@+id/txtPDCartQTY"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin1"
+                        android:textSize="@dimen/h3" />
+                </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin1"
+                        android:text="Pallet QTY : "
+                        android:textSize="@dimen/h3" />
+                    <TextView
+                        android:id="@+id/txtPDPalletQTY"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin1"
+                        android:textSize="@dimen/h3" />
                 </LinearLayout>
-                <TextView
-                    android:id="@+id/txtPDPalletQTY"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin1"
-                    android:text="Pallet QTY : "
-                    android:textSize="@dimen/h3" />
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin1"
+                        android:text="Metal Cart QTY : "
+                        android:textSize="@dimen/h3" />
+                    <TextView
+                        android:id="@+id/txtPDMetalQTY"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin1"
+                        android:textSize="@dimen/h3" />
                 </LinearLayout>
-                <TextView
-                    android:id="@+id/txtPDMetalQTY"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin1"
-                    android:text="Metal Cart QTY : "
-                    android:textSize="@dimen/h3" />
+
             </LinearLayout>
 
         </LinearLayout>
