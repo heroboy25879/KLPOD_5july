@@ -31,7 +31,7 @@ public class LoginFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         EditText userEditText = getView().findViewById(R.id.edtFLogin_User);
         EditText passEditText = getView().findViewById(R.id.edtFLogin_Password);
-        userEditText.setText("BHV4597");
+        userEditText.setText("BKT1585");
         passEditText.setText("1234");
         //Login Check
         LoginCheck();

@@ -100,10 +100,11 @@ public class SignatureActivity extends Activity{
                 EditText nameEditText = findViewById(R.id.edtSNName);
                 if(!nameEditText.getText().toString().trim().equals("")) {
                     String resultUploadSign = mSignature.save(mView);
+                    Log.v("KLTag", "resultUploadSign = > " + resultUploadSign);
                     if(Boolean.valueOf(resultUploadSign)) {
                         JSONArray jsonArray = WebserviceExecute(masterServiceFunction.getUpdateReceiverName()
                                 + "/" + deliveryDetailNo
-                                + "/" + nameEditText.getText()
+                                + "/" + nameEditText.getText().toString().trim().replace(" ","@@")
                                 + "/" + vehiclesCode
                         );
 

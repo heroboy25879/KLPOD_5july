@@ -305,8 +305,8 @@ public class PlanDetailActivity extends AppCompatActivity{
                 AlertDialog.Builder builder = new AlertDialog.Builder(PlanDetailActivity.this);
                 builder.setCancelable(false);
                 builder.setIcon(R.drawable.ic_action_alert);
-                builder.setTitle("Confirm confirm job");
-                builder.setMessage("Do you want confirm job?");
+                builder.setTitle("Confirm job");
+                builder.setMessage("Do you want confirm job and departure?");
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -404,35 +404,60 @@ public class PlanDetailActivity extends AppCompatActivity{
             arrivedButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String Latitude = "-",Longitude = "-";
-
-                    Latitude = deviceInfo.getLatitude();
-                    Longitude = deviceInfo.getLongitude();
-
-                    JSONArray jsonArray = WebserviceExecute(masterServiceFunction.getUpdateArrivalTime()
-                            +"/"+ DeliveryDetailNo
-                            +"/"+ Latitude
-                            +"/"+ Longitude
-                            +"/"+ vehiclesCode
-                    );
-
-                    try {
-                        JSONObject jsonObject = jsonArray.getJSONObject(0);
-                        if( Boolean.valueOf(jsonObject.getString("Result")))
-                        {
-                            setLayoutVisibility("false");
-                            Toast.makeText(PlanDetailActivity.this, "Arrived", Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(PlanDetailActivity.this);
+                    builder.setCancelable(false);
+                    builder.setIcon(R.drawable.ic_action_alert);
+                    builder.setTitle("Arrived");
+                    builder.setMessage("Are you arrived?");
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
                         }
-                        else
-                        {
-                            Toast.makeText(PlanDetailActivity.this, "Cannot update data because :" + jsonObject.getString("MessageError"), Toast.LENGTH_SHORT).show();
+                    });
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //arrived
+                            arrived();
+                            dialog.dismiss();
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    });
+                    builder.show();
+
                 }
             });
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void arrived() {
+        String Latitude = "-",Longitude = "-";
+        DeviceInfo deviceInfo = new DeviceInfo(this);
+        deviceInfo.setupGPS();
+        Latitude = deviceInfo.getLatitude();
+        Longitude = deviceInfo.getLongitude();
+
+        JSONArray jsonArray = WebserviceExecute(masterServiceFunction.getUpdateArrivalTime()
+                +"/"+ DeliveryDetailNo
+                +"/"+ Latitude
+                +"/"+ Longitude
+                +"/"+ vehiclesCode
+        );
+
+        try {
+            JSONObject jsonObject = jsonArray.getJSONObject(0);
+            if( Boolean.valueOf(jsonObject.getString("Result")))
+            {
+                setLayoutVisibility("false");
+                Toast.makeText(PlanDetailActivity.this, "Arrived", Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                Toast.makeText(PlanDetailActivity.this, "Cannot update data because :" + jsonObject.getString("MessageError"), Toast.LENGTH_SHORT).show();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

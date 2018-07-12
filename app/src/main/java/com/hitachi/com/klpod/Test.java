@@ -62,11 +62,7 @@ public class Test extends AppCompatActivity {
     }
 
     private void test() {
-        DeviceInfo deviceInfo;
-        deviceInfo = new DeviceInfo(this);
-
-
-
+        DeviceInfo deviceInfo = new DeviceInfo(this);
         deviceInfo.setupGPS();
 
          TextView textView = findViewById(R.id.txtTest);

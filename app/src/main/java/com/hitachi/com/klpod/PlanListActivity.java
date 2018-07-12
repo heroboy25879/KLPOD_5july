@@ -59,7 +59,7 @@ public class PlanListActivity extends AppCompatActivity{
         //Get Outbound Date
         getOutboundDate();
         //Get Plan Detail
-        //getDelivery();
+        getDelivery();
         //Check Button Start Job
         checkButtonStartJob();
         //Check Button End Job
@@ -155,8 +155,10 @@ public class PlanListActivity extends AppCompatActivity{
 
     private void endJob() {
         String LatitudeArrival = "-",LongitudeArrival = "-";
-//        LatitudeArrival = deviceInfo.getLatitude();
-//        LongitudeArrival = deviceInfo.getLongitude();
+        DeviceInfo deviceInfo = new DeviceInfo(this);
+        deviceInfo.setupGPS();
+        LatitudeArrival = deviceInfo.getLatitude();
+        LongitudeArrival = deviceInfo.getLongitude();
         JSONArray jsonArray = WebserviceExecute(masterServiceFunction.getUpdateEndJob()
                 +"/"+ DeliveryNo
                 +"/"+ LatitudeArrival
@@ -220,8 +222,10 @@ public class PlanListActivity extends AppCompatActivity{
 
     private void startJob(Button startJobButton) {
         String LatitudeDeparture = "-",LongitudeDeparture = "-";
-//        LatitudeDeparture = deviceInfo.getLatitude();
-//        LongitudeDeparture = deviceInfo.getLongitude();
+        DeviceInfo deviceInfo = new DeviceInfo(this);
+        deviceInfo.setupGPS();
+        LatitudeDeparture = deviceInfo.getLatitude();
+        LongitudeDeparture = deviceInfo.getLongitude();
         JSONArray jsonArray = WebserviceExecute(masterServiceFunction.getUpdateStartJob()
                 +"/"+ DeliveryNo
                 +"/"+ LatitudeDeparture
@@ -379,7 +383,8 @@ public class PlanListActivity extends AppCompatActivity{
             else
             {
                 Log.d("KLTag", "Warning ==> " );
-                masterAlert.normalDialog("Warning","No plan for this truck!!");
+                Toast.makeText(this,"No plan for this truck!!",Toast.LENGTH_SHORT).show();
+                //masterAlert.normalDialog("Warning","No plan for this truck!!");
 
             }
         } catch (Exception e) {
