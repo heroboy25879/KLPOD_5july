@@ -517,13 +517,13 @@ public class PlanDetailActivity extends AppCompatActivity{
 
             StoreName = jsonObject.getString("StoreName");
             StoreCode = jsonObject.getString("StoreCode");
-            String planCode = planCodeTextView.getText() + (jsonObject.getString("TripNo").equals("null")? "" : jsonObject.getString("TripNo"));
-            String storeCode = storeCodeTextView.getText() + (jsonObject.getString("StoreCode").equals("null")? "" : jsonObject.getString("StoreCode"));
-            String storeName = storeNameTextView.getText() + (jsonObject.getString("StoreName").equals("null")? "" : jsonObject.getString("StoreName"));
-            String outBoundDate = outBoundDateTextView.getText() + (jsonObject.getString("OutboundDate").equals("null")? "" : jsonObject.getString("OutboundDate"));
-            String cartQTY = cartQTYTextView.getText() + (jsonObject.getString("CartQty").equals("null")? "" : jsonObject.getString("CartQty"));
-            String palletQTY = palletQTYTextView.getText() + (jsonObject.getString("PalletQty").equals("null")? "" : jsonObject.getString("PalletQty"));
-            String metalQTY = metalQTYTextView.getText() + (jsonObject.getString("MetalCartQty").equals("null")? "" : jsonObject.getString("MetalCartQty"));
+            String planCode = " " + (jsonObject.getString("TripNo").equals("null")? "" : jsonObject.getString("TripNo"));
+            String storeCode = " " + (jsonObject.getString("StoreCode").equals("null")? "" : jsonObject.getString("StoreCode"));
+            String storeName = " " + (jsonObject.getString("StoreName").equals("null")? "" : jsonObject.getString("StoreName"));
+            String outBoundDate = " " + (jsonObject.getString("OutboundDate").equals("null")? "" : jsonObject.getString("OutboundDate"));
+            String cartQTY = " " + (jsonObject.getString("CartQty").equals("null")? "" : jsonObject.getString("CartQty"));
+            String palletQTY = " " + (jsonObject.getString("PalletQty").equals("null")? "" : jsonObject.getString("PalletQty"));
+            String metalQTY = " " + (jsonObject.getString("MetalCartQty").equals("null")? "" : jsonObject.getString("MetalCartQty"));
 
 
             planCodeTextView.setText(planCode);

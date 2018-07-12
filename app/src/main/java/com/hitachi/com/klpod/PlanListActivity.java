@@ -52,7 +52,7 @@ public class PlanListActivity extends AppCompatActivity{
         setContentView(R.layout.activity_plan_list);
 
         vehiclesCode = getIntent().getStringExtra("VehiclesCode");
-
+        DeliveryNo = "-";
         //create Toolbar
         createToolbar();
 

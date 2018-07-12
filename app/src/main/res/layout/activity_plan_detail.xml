@@ -23,14 +23,26 @@
             android:layout_marginTop="@dimen/margin2"
             android:orientation="vertical">
 
-
-            <TextView
-                android:id="@+id/txtPDPlanCode"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="10"
-                android:text="Plan Code : "
-                android:textSize="@dimen/h2" />
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Plan Code : "
+                    android:textSize="@dimen/h2" />
+                <TextView
+                    android:id="@+id/txtPDPlanCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text=""
+                    android:textSize="@dimen/h2" />
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -40,29 +52,67 @@
                 android:layout_marginTop="@dimen/margin2"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/txtPDStoreCode"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin1"
-                    android:text="Store Code : "
-                    android:textSize="@dimen/h3" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/txtPDStoreName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin1"
-                    android:text="Store Name : "
-                    android:textSize="@dimen/h3" />
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin1"
+                        android:text="Store Code : "
+                        android:textSize="@dimen/h3" />
+                    <TextView
+                        android:id="@+id/txtPDStoreCode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin1"
+                        android:textSize="@dimen/h3" />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/txtPDOutboundDate"
-                    android:layout_width="wrap_content"
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin1"
-                    android:text="Outbound Date : "
-                    android:textSize="@dimen/h3" />
+                    android:orientation="horizontal">
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin1"
+                        android:text="Store Name : "
+                        android:textSize="@dimen/h3" />
+                    <TextView
+                        android:id="@+id/txtPDStoreName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin1"
+                        android:textSize="@dimen/h3" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        te
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin1"
+                        android:text="Outbound Date : "
+                        android:textSize="@dimen/h3" />
+                    <TextView
+                        android:id="@+id/txtPDOutboundDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin1"
+                        android:textSize="@dimen/h3" />
+                </LinearLayout>
+
+
 
                 <TextView
                     android:id="@+id/txtPDCartQTY"
@@ -72,6 +122,11 @@
                     android:text="Cart QTY : "
                     android:textSize="@dimen/h3" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                </LinearLayout>
                 <TextView
                     android:id="@+id/txtPDPalletQTY"
                     android:layout_width="wrap_content"
@@ -80,6 +135,11 @@
                     android:text="Pallet QTY : "
                     android:textSize="@dimen/h3" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                </LinearLayout>
                 <TextView
                     android:id="@+id/txtPDMetalQTY"
                     android:layout_width="wrap_content"

@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:alpha="0.8"
         android:scaleType="fitXY"
-        android:src="@drawable/backg"
+        android:background="#E1E2E1"
 
         />
 
