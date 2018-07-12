@@ -1,5 +1,6 @@
 package com.hitachi.com.klpod;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
@@ -300,46 +302,70 @@ public class PlanDetailActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
 
-                JSONArray jsonArray = WebserviceExecute(masterServiceFunction.getUpdateDepartureTime()
-                        +"/"+ DeliveryDetailNo
-                        +"/"+ vehiclesCode
-                );
-
-                try {
-                    JSONObject jsonObject = jsonArray.getJSONObject(0);
-                    if( Boolean.valueOf(jsonObject.getString("Result")))
-                    {
-                        for (int i = 0 ; i <4 ; i++)
-                        {
-                            //insert name of image
-                            WebserviceExecute(masterServiceFunction.getInsertImage()
-                                    +"/"+ DeliveryDetailNo
-                                    +"/"+ (i+1)
-                                    +"/"+ imageName[i]
-                                    +"/"+ vehiclesCode);
-
-                        }
-                        setLayoutVisibility("false");
-                        Toast.makeText(PlanDetailActivity.this, "Departed", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(PlanDetailActivity.this,PlanListActivity.class);
-                        intent.putExtra("VehiclesCode",vehiclesCode);
-                        startActivity(intent);
-
-                        finish();
+                AlertDialog.Builder builder = new AlertDialog.Builder(PlanDetailActivity.this);
+                builder.setCancelable(false);
+                builder.setIcon(R.drawable.ic_action_alert);
+                builder.setTitle("Confirm confirm job");
+                builder.setMessage("Do you want confirm job?");
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
                     }
-                    else
-                    {
-                        if(jsonObject.getString("MessageError").equals("NoReceiverName"))
-                            masterAlert.normalDialog("Warning" ,"Please sign signature.");
-                        else
-                            Toast.makeText(PlanDetailActivity.this, "Cannot update data because :" + jsonObject.getString("MessageError"), Toast.LENGTH_SHORT).show();
+                });
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //confirm
+                        confirm();
+                        dialog.dismiss();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                });
+                builder.show();
+
 
             }
         });
+    }
+
+    private void confirm() {
+        JSONArray jsonArray = WebserviceExecute(masterServiceFunction.getUpdateDepartureTime()
+                +"/"+ DeliveryDetailNo
+                +"/"+ vehiclesCode
+        );
+
+        try {
+            JSONObject jsonObject = jsonArray.getJSONObject(0);
+            if( Boolean.valueOf(jsonObject.getString("Result")))
+            {
+                for (int i = 0 ; i <4 ; i++)
+                {
+                    //insert name of image
+                    WebserviceExecute(masterServiceFunction.getInsertImage()
+                            +"/"+ DeliveryDetailNo
+                            +"/"+ (i+1)
+                            +"/"+ imageName[i]
+                            +"/"+ vehiclesCode);
+
+                }
+                setLayoutVisibility("false");
+                Toast.makeText(PlanDetailActivity.this, "Departed", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(PlanDetailActivity.this,PlanListActivity.class);
+                intent.putExtra("VehiclesCode",vehiclesCode);
+                startActivity(intent);
+
+                finish();
+            }
+            else
+            {
+                if(jsonObject.getString("MessageError").equals("NoReceiverName"))
+                    masterAlert.normalDialog("Warning" ,"Please sign signature.");
+                else
+                    Toast.makeText(PlanDetailActivity.this, "Cannot update data because :" + jsonObject.getString("MessageError"), Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void returnButtonClick() {
@@ -352,6 +378,7 @@ public class PlanDetailActivity extends AppCompatActivity{
                 intent.putExtra("DeliveryNo",DeliveryNo);
                 intent.putExtra("StoreCode",StoreCode);
                 intent.putExtra("vehiclesCode",vehiclesCode);
+                intent.putExtra("DeliveryDetailNo",DeliveryDetailNo);
                 startActivity(intent);
             }
         });

@@ -31,7 +31,7 @@ public class LoginFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         EditText userEditText = getView().findViewById(R.id.edtFLogin_User);
         EditText passEditText = getView().findViewById(R.id.edtFLogin_Password);
-        userEditText.setText("BHP4171");
+        userEditText.setText("BHV4597");
         passEditText.setText("1234");
         //Login Check
         LoginCheck();
@@ -46,6 +46,8 @@ public class LoginFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 EditText userEditText = getView().findViewById(R.id.edtFLogin_User);
                 EditText passEditText = getView().findViewById(R.id.edtFLogin_Password);
 

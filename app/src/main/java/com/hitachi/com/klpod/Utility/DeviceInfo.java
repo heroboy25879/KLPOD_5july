@@ -23,7 +23,7 @@ public class DeviceInfo {
 
     public DeviceInfo(Context context) {
         this.context = context;
-        locationManager = (LocationManager) context.getSystemService((Context.LOCATION_SERVICE));
+
 
     }
 
@@ -71,6 +71,7 @@ public class DeviceInfo {
 
     public void setupGPS()
     {
+        locationManager = (LocationManager) context.getSystemService((Context.LOCATION_SERVICE));
         criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
         criteria.setAltitudeRequired(false);
@@ -79,7 +80,7 @@ public class DeviceInfo {
 
     }
 
-    private void updateGPS() {
+    public void updateGPS() {
         //หาพิกัดจาก network
         Location networkLocation = myFindLocation(LocationManager.NETWORK_PROVIDER);
         if (networkLocation != null) {
@@ -146,7 +147,10 @@ public class DeviceInfo {
         }
     };
 
-
+    public void  stopGPS()
+    {
+        locationManager.removeUpdates(locationListener);
+    }
 
 
 }

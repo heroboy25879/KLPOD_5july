@@ -29,6 +29,7 @@ public class RetrunCartActivity  extends Activity{
     String storeName,StoreCode;
     String DeliveryNo;
     String vehiclesCode;
+    String DeliveryDetailNo;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +39,7 @@ public class RetrunCartActivity  extends Activity{
         StoreCode = getIntent().getStringExtra("StoreCode");
         DeliveryNo = getIntent().getStringExtra("DeliveryNo");
         vehiclesCode = getIntent().getStringExtra("vehiclesCode");
+        DeliveryDetailNo = getIntent().getStringExtra("DeliveryDetailNo");
         TextView storeNameTextView = findViewById(R.id.txtRTStoreName);
         storeNameTextView.setText(storeNameTextView.getText() +  storeName);
 
@@ -63,7 +65,7 @@ public class RetrunCartActivity  extends Activity{
 
                     
                         JSONArray jsonArray = WebserviceExecute(masterServiceFunction.getInsertTrDeliveryReturn()
-                                + "/" + DeliveryNo
+                                + "/" + DeliveryDetailNo
                                 + "/" + StoreCode
                                 + "/" + containerCodeStrings[i]
                                 + "/" + ContainerQty
@@ -108,7 +110,7 @@ public class RetrunCartActivity  extends Activity{
     private void getContainerList() {
         try {
             JSONArray jsonArray = WebserviceExecute(masterServiceFunction.getGetContainer()
-                            +"/" + DeliveryNo
+                            +"/" + DeliveryDetailNo
                             +"/" + StoreCode
                         );
 

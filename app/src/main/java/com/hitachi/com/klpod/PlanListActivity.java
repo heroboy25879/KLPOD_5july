@@ -56,27 +56,23 @@ public class PlanListActivity extends AppCompatActivity{
         //create Toolbar
         createToolbar();
 
-
         //Get Outbound Date
         getOutboundDate();
-
         //Get Plan Detail
-        getDelivery();
-
+        //getDelivery();
         //Check Button Start Job
         checkButtonStartJob();
-
         //Check Button End Job
         checkButtonEndJob();
-
         //Start Button Click
         startButtonClick();
-
         //end Button Click
         endButtonClick();
 
 
     } // main method
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -159,8 +155,8 @@ public class PlanListActivity extends AppCompatActivity{
 
     private void endJob() {
         String LatitudeArrival = "-",LongitudeArrival = "-";
-        LatitudeArrival = deviceInfo.getLatitude();
-        LongitudeArrival = deviceInfo.getLongitude();
+//        LatitudeArrival = deviceInfo.getLatitude();
+//        LongitudeArrival = deviceInfo.getLongitude();
         JSONArray jsonArray = WebserviceExecute(masterServiceFunction.getUpdateEndJob()
                 +"/"+ DeliveryNo
                 +"/"+ LatitudeArrival
@@ -173,6 +169,10 @@ public class PlanListActivity extends AppCompatActivity{
             if( Boolean.valueOf(jsonObject.getString("Result")))
             {
                 Toast.makeText(PlanListActivity.this, "Job Ended", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this,PlanListActivity.class);
+                intent.putExtra("VehiclesCode", vehiclesCode);
+                startActivity(intent);
+                //finish();
             }
             else
             {
@@ -220,8 +220,8 @@ public class PlanListActivity extends AppCompatActivity{
 
     private void startJob(Button startJobButton) {
         String LatitudeDeparture = "-",LongitudeDeparture = "-";
-        LatitudeDeparture = deviceInfo.getLatitude();
-        LongitudeDeparture = deviceInfo.getLongitude();
+//        LatitudeDeparture = deviceInfo.getLatitude();
+//        LongitudeDeparture = deviceInfo.getLongitude();
         JSONArray jsonArray = WebserviceExecute(masterServiceFunction.getUpdateStartJob()
                 +"/"+ DeliveryNo
                 +"/"+ LatitudeDeparture
@@ -378,7 +378,7 @@ public class PlanListActivity extends AppCompatActivity{
             }
             else
             {
-
+                Log.d("KLTag", "Warning ==> " );
                 masterAlert.normalDialog("Warning","No plan for this truck!!");
 
             }

@@ -25,6 +25,9 @@
         <activity android:name=".PlanDetailActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".SignatureActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".RetrunCartActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".Test" android:screenOrientation="portrait">
+
+        </activity>
     </application>
 
 </manifest>

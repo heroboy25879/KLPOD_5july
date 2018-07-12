@@ -27,9 +27,9 @@ public class MasterServiceFunction {
     private String GetDeliveryPlanDetail = urlService + methodService + "/GetDeliveryPlanDetail";
     ///UpdateArrivalTime/{pDeliveryDetailNo}/{pLatitude}/{pLongitude}/{pUserUpdate}
     private String UpdateArrivalTime = urlService + methodService + "/UpdateArrivalTime";
-    ///GetContainer/{pDeliveryNo}/{pStoreCode}
+    ///GetContainer/{pDeliveryDetailNo}/{pStoreCode}
     private String GetContainer = urlService + methodService + "/GetContainer";
-    ///InsertTrDeliveryReturn/{pDeliveryNo}/{pStoreCode}/{pContainerCode}/{pContainerQty}/{pUserCreate}
+    ///InsertTrDeliveryReturn/{pDeliveryDetailNo}/{pStoreCode}/{pContainerCode}/{pContainerQty}/{pUserCreate}
     private String InsertTrDeliveryReturn = urlService + methodService + "/InsertTrDeliveryReturn";
     ///UpdateDepartureTime/{pDeliveryDetailNo}/{pUserUpdate}
     private String UpdateDepartureTime = urlService + methodService + "/UpdateDepartureTime";
