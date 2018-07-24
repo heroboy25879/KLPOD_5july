@@ -5,15 +5,18 @@
 
     <TextView
 
-        android:textSize="@dimen/h2"
+        android:textStyle="bold"
+        android:textSize="@dimen/h1"
         android:layout_margin="@dimen/margin1"
         android:text="Signature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <EditText
+        android:background="@drawable/groupuser"
         android:id="@+id/edtSNName"
         android:hint="Name - Surname"
+        android:inputType="text"
         android:layout_marginLeft="@dimen/h2"
         android:layout_marginRight="@dimen/margin2"
         android:layout_width="match_parent"
@@ -21,15 +24,15 @@
 
 
     <LinearLayout
+
         android:layout_margin="@dimen/margin1"
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:id="@+id/linSNSign"
-       android:background="#ffffff"
+       android:background="@drawable/bgpd2"/>
 
-        >
 
-    </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/linSNButton"
@@ -42,12 +45,18 @@
 
 
         <Button
+            android:textStyle="bold"
+            android:textColor="#fff"
+            android:background="@drawable/btn_blue"
             android:id="@+id/btnSNSave"
             android:text="Save"
             android:layout_width="150dp"
             android:layout_height="wrap_content" />
 
         <Button
+            android:textStyle="bold"
+            android:textColor="#fff"
+            android:background="@drawable/btn_yellow"
             android:id="@+id/btnSNClear"
             android:text="Clear"
             android:layout_width="150dp"

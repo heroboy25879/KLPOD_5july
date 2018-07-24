@@ -16,7 +16,6 @@
 
         <TextView
             android:scrollbars="vertical"
-            android:textColor="#ffffff"
             android:id="@+id/txtLPLLocation"
             android:layout_width="150dp"
             android:layout_height="match_parent"
@@ -26,7 +25,6 @@
             android:textSize="@dimen/h3" />
 
         <TextView
-            android:textColor="#ffffff"
             android:id="@+id/txtLPLTime"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

@@ -185,7 +185,7 @@ public class SignatureActivity extends Activity{
                     Log.v("KLTag", "Bitmap=++++++++++++++: " + encodedImage.length());
 
                     String dateStamp = new SimpleDateFormat("ddMMyyyy").format(Calendar.getInstance().getTime());
-                    nameImage = DeliveryNo + "_5_" + dateStamp;
+                    nameImage = deliveryDetailNo + "_5_" + dateStamp;
 
                     FuncUploadImage funcUploadImage = new FuncUploadImage(SignatureActivity.this,encodedImage,nameImage);
                     funcUploadImage.execute();

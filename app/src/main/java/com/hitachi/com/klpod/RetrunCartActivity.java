@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,11 +60,10 @@ public class RetrunCartActivity  extends Activity{
                 String result = "";
                 ListView listView = findViewById(R.id.lvRCContainer);
                 for(int i=0;i<listView.getCount();i++) {
-                    View view = listView.getChildAt(i);
-                    EditText editText = view.findViewById(R.id.edtRTQty);
-                    String ContainerQty = editText.getText().toString().trim();
-
-                    
+                    try {
+                        View view = listView.getChildAt(i);
+                        EditText editText = view.findViewById(R.id.edtRTQty);
+                        String ContainerQty = editText.getText().toString().trim();
                         JSONArray jsonArray = WebserviceExecute(masterServiceFunction.getInsertTrDeliveryReturn()
                                 + "/" + DeliveryDetailNo
                                 + "/" + StoreCode
@@ -82,6 +82,14 @@ public class RetrunCartActivity  extends Activity{
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+                    } catch (Exception e) {
+                        Log.d("KLTag", "i ==> " + i);
+                        Log.d("KLTag", "Exception ==> " + e.getMessage());
+                    }
+
+
+
+
 
                 }
                 Toast.makeText(RetrunCartActivity.this, "Return result :\n" + result, Toast.LENGTH_SHORT).show();
@@ -114,7 +122,7 @@ public class RetrunCartActivity  extends Activity{
                             +"/" + StoreCode
                         );
 
-            ListView listView = findViewById(R.id.lvRCContainer);
+
             nameStrings = new String[jsonArray.length()];
             final String[] desStrings = new String[jsonArray.length()];
             final String[] containerQtyStrings = new String[jsonArray.length()];
@@ -131,8 +139,13 @@ public class RetrunCartActivity  extends Activity{
                 }
                 Log.d("KLTag", "ContainerList ==> " + jsonArray);
 
+
+
+            ListView listView = findViewById(R.id.lvRCContainer);
             ReturnCartAdapter returnCartAdapter = new ReturnCartAdapter(this,nameStrings,desStrings,containerQtyStrings);
             listView.setAdapter(returnCartAdapter);
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }

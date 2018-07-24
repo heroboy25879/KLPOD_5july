@@ -4,42 +4,49 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/linLvRC"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_margin="@dimen/margin1"
-        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/margin1"
+        android:layout_marginRight="@dimen/margin1"
         android:gravity="center"
-        >
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/txtRTName"
-            android:layout_width="wrap_content"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/margin1"
 
-            android:layout_marginLeft="@dimen/margin2"
             android:text="Name"
             android:textSize="@dimen/h3" />
 
         <TextView
             android:id="@+id/txtRTDes"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="80dp"
-            android:layout_marginLeft="70dp"
+
+            android:layout_marginLeft="@dimen/margin2"
             android:text="Description"
             android:textSize="@dimen/h3" />
-<RelativeLayout
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent">
-    <EditText
-        android:inputType="number"
-        android:gravity="center"
-        android:id="@+id/edtRTQty"
-        android:layout_alignParentBottom="true"
-        android:layout_width="50dp"
-        android:layout_height="40dp" />
 
-</RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/edtRTQty"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/margin1"
+                android:gravity="center"
+                android:inputType="number" />
+
+        </RelativeLayout>
 
 
     </LinearLayout>

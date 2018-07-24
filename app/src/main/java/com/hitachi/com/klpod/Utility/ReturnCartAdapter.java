@@ -45,14 +45,17 @@ public class ReturnCartAdapter extends BaseAdapter{
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.listview_return_cart,parent,false);
 
-        TextView nameTextView = view.findViewById(R.id.txtRTName);
-        TextView desTextView = view.findViewById(R.id.txtRTDes);
-        EditText qtyEditText = view.findViewById(R.id.edtRTQty);
 
-        nameTextView.setText(ContainerName[position]);
-        desTextView.setText(Description[position]);
-        qtyEditText.setText(containerQty[position]);
 
+
+
+            TextView nameTextView = view.findViewById(R.id.txtRTName);
+            TextView desTextView = view.findViewById(R.id.txtRTDes);
+            EditText qtyEditText = view.findViewById(R.id.edtRTQty);
+
+            nameTextView.setText(ContainerName[position]);
+            desTextView.setText(Description[position]);
+            qtyEditText.setText(containerQty[position]);
 
         qtyEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -64,10 +67,19 @@ public class ReturnCartAdapter extends BaseAdapter{
                 } else {
                     Log.d("KLTag", "test ==> " + qtyEditText.getText());
                     if(qtyEditText.getText().toString().trim().equals(""))
-                    qtyEditText.setText("0");
+                        qtyEditText.setText("0");
+
+
+
                 }
             }
         });
+
+
+        if (convertView != null)
+            return convertView;
+
+
 
         return view;
 

@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">KL POD</string>
+    <string name="app_name">MAS POD</string>
     <string name="confirm_departure"><![CDATA[Confirm & Departure]]></string>
     <string name="pl_driver_name">Driver Name : </string>
-    <string name="pl_car_license">Car license : </string>
-    <string name="pl_plan_code">Plan code : </string>
+    <string name="pl_car_license">Lorry Number : </string>
+    <string name="pl_plan_code">Trip No. : </string>
 </resources>

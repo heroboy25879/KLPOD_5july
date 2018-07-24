@@ -7,9 +7,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -36,6 +38,7 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -43,6 +46,7 @@ import java.io.InputStream;
 import java.security.Signature;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class PlanDetailActivity extends AppCompatActivity{
 
@@ -54,6 +58,7 @@ public class PlanDetailActivity extends AppCompatActivity{
     String vehiclesCode;
     String StoreName,StoreCode;
     String DeliveryNo;
+    String imageFilePath;
     String[] imageName = new String[4];
     ImageButton camera1ImageButton,camera2ImageButton,camera3ImageButton,camera4ImageButton;
     @Override
@@ -103,8 +108,10 @@ public class PlanDetailActivity extends AppCompatActivity{
         camera4ImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 456);
+                try {
+                    callCamera(456);
+                } catch (IOException e) {
+                }
             }
         });
     }
@@ -114,8 +121,10 @@ public class PlanDetailActivity extends AppCompatActivity{
         camera3ImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 345);
+                try {
+                    callCamera(345);
+                } catch (IOException e) {
+                }
             }
         });
     }
@@ -125,8 +134,10 @@ public class PlanDetailActivity extends AppCompatActivity{
         camera2ImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 234);
+                try {
+                    callCamera(234);
+                } catch (IOException e) {
+                }
             }
         });
     }
@@ -136,10 +147,22 @@ public class PlanDetailActivity extends AppCompatActivity{
         camera1ImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 123);
+                try {
+                    callCamera(123);
+                } catch (IOException e) {
+                }
             }
         });
+    }
+
+    private void callCamera(int REQUEST_CAPTURE_IMAGE) throws IOException {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        Uri photoURI = FileProvider.getUriForFile(this,
+                BuildConfig.APPLICATION_ID + ".provider",
+                createImageFile());
+
+        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+        startActivityForResult(takePictureIntent, REQUEST_CAPTURE_IMAGE);
     }
 
     @Override
@@ -147,42 +170,40 @@ public class PlanDetailActivity extends AppCompatActivity{
         if (resultCode == RESULT_OK) {
             String dateStamp = new SimpleDateFormat("ddMMyyyy").format(Calendar.getInstance().getTime());
             String nameImage = "";
-            Uri selectedImage = data.getData();
-            Bundle bundle = data.getExtras();
-            Bitmap bitmap = (Bitmap) bundle.get("data");
-            switch (requestCode)
-            {
-                case 123 : camera1ImageButton.setImageBitmap(bitmap);
-                    nameImage = DeliveryNo + "_1_" + dateStamp;
-                    break;
-                case 234 : camera2ImageButton.setImageBitmap(bitmap);
-                    nameImage = DeliveryNo + "_2_" + dateStamp;
-                    break;
-                case 345 : camera3ImageButton.setImageBitmap(bitmap);
-                    nameImage = DeliveryNo + "_3_" + dateStamp;
-                    break;
-                case 456 : camera4ImageButton.setImageBitmap(bitmap);
-                    nameImage = DeliveryNo + "_4_" + dateStamp;
-                    break;
-
-            }
-
+            Uri selectedImage = Uri.parse(imageFilePath);
+            File fileImage = new File(selectedImage.getPath());
             Bitmap originBitmap = null;
 
             InputStream imageStream;
             try {
-                imageStream = getContentResolver().openInputStream(
-                        selectedImage);
+                imageStream  = new FileInputStream(fileImage);
                 originBitmap = BitmapFactory.decodeStream(imageStream);
 
             } catch (FileNotFoundException e) {
             }
-
             //Bitmap originBitmap2 = Bitmap.createScaledBitmap(originBitmap,(int)(originBitmap.getWidth()*0.9), (int)(originBitmap.getHeight()*0.9), true);
             if (originBitmap.getHeight() < originBitmap.getWidth()) {
                 originBitmap = rotateBitmap(originBitmap);
             }
             Bitmap originBitmap2 = Bitmap.createScaledBitmap(originBitmap,489, 652, true);
+
+
+            switch (requestCode)
+            {
+                case 123 : camera1ImageButton.setImageBitmap(originBitmap2);
+                    nameImage = DeliveryDetailNo + "_1_" + dateStamp;
+                    break;
+                case 234 : camera2ImageButton.setImageBitmap(originBitmap2);
+                    nameImage = DeliveryDetailNo + "_2_" + dateStamp;
+                    break;
+                case 345 : camera3ImageButton.setImageBitmap(originBitmap2);
+                    nameImage = DeliveryDetailNo + "_3_" + dateStamp;
+                    break;
+                case 456 : camera4ImageButton.setImageBitmap(originBitmap2);
+                    nameImage = DeliveryDetailNo + "_4_" + dateStamp;
+                    break;
+
+            }
 
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             originBitmap2.compress(Bitmap.CompressFormat.JPEG, 90, stream);
@@ -239,6 +260,29 @@ public class PlanDetailActivity extends AppCompatActivity{
         return bmp;
 
     }
+
+    //Camera for Android N
+    private File createImageFile() throws IOException {
+        try {
+            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+            String imageFileName = "JPEG_" + timeStamp + "_";
+            File storageDir = new File(Environment.getExternalStoragePublicDirectory(
+                    Environment.DIRECTORY_DCIM), "Camera");
+            Log.d("test","storageDir = > " + storageDir);
+            File image = File.createTempFile(
+                    imageFileName,  /* prefix */
+                    ".jpg",         /* suffix */
+                    storageDir      /* directory */
+            );
+            imageFilePath = "file:" + image.getAbsolutePath();
+            return image;
+
+        } catch (Exception e) {
+            return  null;
+        }
+
+    }
+    //End Camera for Android N
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -389,11 +433,29 @@ public class PlanDetailActivity extends AppCompatActivity{
         signatureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PlanDetailActivity.this,SignatureActivity.class);
-                intent.putExtra("DeliveryDetailNo",DeliveryDetailNo);
-                intent.putExtra("DeliveryNo",DeliveryNo);
-                intent.putExtra("vehiclesCode",vehiclesCode);
-                startActivity(intent);
+                JSONArray jsonArray = WebserviceExecute(masterServiceFunction.getCheckReceiver()
+                        +"/"+ DeliveryDetailNo
+                );
+
+                try {
+                    JSONObject jsonObject = jsonArray.getJSONObject(0);
+                    if( Boolean.valueOf(jsonObject.getString("Result")))
+                    {
+                        Intent intent = new Intent(PlanDetailActivity.this,SignatureActivity.class);
+                        intent.putExtra("DeliveryDetailNo",DeliveryDetailNo);
+                        intent.putExtra("DeliveryNo",DeliveryNo);
+                        intent.putExtra("vehiclesCode",vehiclesCode);
+                        startActivity(intent);
+                    }
+                    else
+                    {
+                        Toast.makeText(PlanDetailActivity.this, "The signature had been signed." , Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
             }
         });
     }
@@ -502,7 +564,7 @@ public class PlanDetailActivity extends AppCompatActivity{
             JSONArray jsonArray = WebserviceExecute(masterServiceFunction.getGetDeliveryPlanDetail()
                     +"/"+ DeliveryDetailNo
                     +"/"+ ownerCode
-                    );
+            );
             Log.d("KLTag", "Delivery ==> " + jsonArray);
 
             JSONObject jsonObject = jsonArray.getJSONObject(0);
