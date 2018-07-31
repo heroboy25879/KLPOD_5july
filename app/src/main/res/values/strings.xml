@@ -1,7 +1,11 @@
 <resources>
-    <string name="app_name">MAS POD</string>
+    <string name="app_name">TMS POD</string>
     <string name="confirm_departure"><![CDATA[Confirm & Departure]]></string>
     <string name="pl_driver_name">Driver Name : </string>
     <string name="pl_car_license">Lorry Number : </string>
     <string name="pl_plan_code">Trip No. : </string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

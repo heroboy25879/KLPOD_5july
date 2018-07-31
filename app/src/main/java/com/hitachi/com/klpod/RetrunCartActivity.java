@@ -1,10 +1,12 @@
 package com.hitachi.com.klpod;
 
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -36,6 +38,10 @@ public class RetrunCartActivity  extends Activity{
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_return_cart);
+
+
+
+
         storeName = getIntent().getStringExtra("StoreName");
         StoreCode = getIntent().getStringExtra("StoreCode");
         DeliveryNo = getIntent().getStringExtra("DeliveryNo");

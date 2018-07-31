@@ -1,11 +1,13 @@
 package com.hitachi.com.klpod;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -17,6 +19,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -51,6 +54,9 @@ public class PlanListActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plan_list);
 
+
+
+
         vehiclesCode = getIntent().getStringExtra("VehiclesCode");
         DeliveryNo = "-";
         //create Toolbar
@@ -70,7 +76,10 @@ public class PlanListActivity extends AppCompatActivity{
         endButtonClick();
 
 
+
+
     } // main method
+
 
 
 
@@ -84,6 +93,7 @@ public class PlanListActivity extends AppCompatActivity{
             if(jsonArray.length() > 0) {
                 Toast.makeText(PlanListActivity.this,"Logout.",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(PlanListActivity.this, MainActivity.class));
+                finish();
             }
             return true;
         }
@@ -170,6 +180,7 @@ public class PlanListActivity extends AppCompatActivity{
             JSONObject jsonObject = jsonArray.getJSONObject(0);
             if( Boolean.valueOf(jsonObject.getString("Result")))
             {
+
                 Toast.makeText(PlanListActivity.this, "Job Ended", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this,PlanListActivity.class);
                 intent.putExtra("VehiclesCode", vehiclesCode);
@@ -395,6 +406,7 @@ public class PlanListActivity extends AppCompatActivity{
 
     private void getOutboundDate() {
         try {
+
             JSONArray jsonArray = WebserviceExecute(masterServiceFunction.getGetOutboundDate()
                     +"/"+ vehiclesCode);
             Log.d("KLTag", "OutboundDate ==> " + jsonArray);
@@ -410,10 +422,12 @@ public class PlanListActivity extends AppCompatActivity{
             }
             outBoundDate = OutboundDateFullFormatStrings[0];
 
-            Spinner spinner = findViewById(R.id.spinerPLOutboundDate);
             ArrayAdapter<String>  stringArrayAdapter = new ArrayAdapter<String>(PlanListActivity.this,
                     android.R.layout.simple_list_item_1,
                     outBoundDateStrings);
+
+            Spinner spinner = findViewById(R.id.spinerPLOutboundDate);
+
             spinner.setAdapter(stringArrayAdapter);
 
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -423,17 +437,25 @@ public class PlanListActivity extends AppCompatActivity{
 
                     // ทำต่อด้วย
                     getDelivery();
+
+                    checkButtonStartJob();
+
+                    checkButtonEndJob();
+
+
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
                     outBoundDate = OutboundDateFullFormatStrings[0];
+
+                    checkButtonStartJob();
+                    checkButtonEndJob();
+
+
                 }
             });
 
-//            Button outBoundDateButton = findViewById(R.id.btnPLOutboundDate);
-////            outBoundDateButton.setText(jsonObject.getString("OutboundDate"));
-     //       outBoundDate = OutboundDateFullFormatStrings[0];
 
         } catch (Exception e) {
             e.printStackTrace();

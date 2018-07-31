@@ -15,7 +15,7 @@
 
         <TextView
 
-            android:textColor="#737171"
+            android:textColor="#0B67AE"
             android:textSize="40dp"
             android:text="Welcome to"
             android:textStyle="bold"
@@ -23,18 +23,20 @@
             android:layout_height="wrap_content" />
         <TextView
 
-            android:textColor="#8d8b8b"
-            android:textSize="30dp"
+            android:textColor="#2189BC"
+            android:textSize="35dp"
             android:text="POD"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <!--Logo-->
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:src="@drawable/logonew" />
+            android:layout_marginTop="@dimen/margin2"
+
+            android:layout_width="180dp"
+            android:layout_height="70dp"
+            android:layout_marginBottom="30dp"
+            android:src="@drawable/aeon" />
 
         <!--User Edittext-->
         <LinearLayout
@@ -78,7 +80,7 @@
 
         <!--Login-->
         <Button
-            android:background="@drawable/btnlogin"
+            android:background="@drawable/btn_arrived_blue"
             android:id="@+id/btnFLogin_Login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

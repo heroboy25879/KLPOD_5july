@@ -2,8 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="@drawable/bg_blue"
+
     android:orientation="vertical">
+
 
     <!--tool bar-->
     <include
@@ -11,8 +13,10 @@
         layout="@layout/toolbar_main" />
 
     <RelativeLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
 
         <LinearLayout
             android:id="@+id/linPDTop"
@@ -21,7 +25,7 @@
             android:layout_marginLeft="@dimen/margin1"
             android:layout_marginRight="@dimen/margin1"
             android:layout_marginTop="5dp"
-            android:background="@drawable/bgpd1"
+            android:background="@drawable/pn_white"
             android:orientation="vertical">
 
             <LinearLayout
@@ -53,7 +57,7 @@
                 android:layout_marginLeft="@dimen/margin1"
                 android:layout_marginRight="@dimen/margin1"
                 android:layout_marginTop="@dimen/margin1"
-                android:background="@drawable/bgpd2"
+
                 android:orientation="vertical"
                 android:scrollbars="horizontal">
 
@@ -67,8 +71,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/margin1"
                         android:text="Store Code : "
-                        android:textSize="@dimen/h3"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/h3" />
 
                     <TextView
                         android:id="@+id/txtPDStoreCode"
@@ -89,8 +92,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/margin1"
                         android:text="Store Name : "
-                        android:textSize="@dimen/h3"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/h3" />
 
                     <TextView
                         android:id="@+id/txtPDStoreName"
@@ -111,8 +113,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/margin1"
                         android:text="Outbound Date : "
-                        android:textSize="@dimen/h3"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/h3" />
 
                     <TextView
                         android:id="@+id/txtPDOutboundDate"
@@ -132,9 +133,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/margin1"
-                        android:text="Cart QTY : "
-                        android:textSize="@dimen/h3"
-                        android:textStyle="bold" />
+                        android:text="Total Cart QTY : "
+                        android:textSize="@dimen/h3" />
 
                     <TextView
                         android:id="@+id/txtPDCartQTY"
@@ -155,8 +155,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/margin1"
                         android:text="Pallet QTY : "
-                        android:textSize="@dimen/h3"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/h3" />
 
                     <TextView
                         android:id="@+id/txtPDPalletQTY"
@@ -177,8 +176,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/margin1"
                         android:text="Metal Cart QTY : "
-                        android:textSize="@dimen/h3"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/h3" />
 
                     <TextView
                         android:id="@+id/txtPDMetalQTY"
@@ -192,8 +190,8 @@
 
         </LinearLayout>
 
-
-        <LinearLayout
+        <!--Arrived btn-->
+        <RelativeLayout
             android:id="@+id/linPDBelow"
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -202,22 +200,35 @@
             android:layout_marginRight="@dimen/margin2"
             android:layout_marginTop="@dimen/margin2"
             android:gravity="center"
+
             android:orientation="vertical">
+
+            <Button
+                android:background="@drawable/gps"
+                android:layout_centerInParent="true"
+                android:layout_width="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="50dp"
+                android:layout_height="35dp"
+
+                />
 
             <Button
                 android:id="@+id/btnPDArrived"
                 android:layout_width="wrap_content"
                 android:layout_height="80dp"
-                android:alpha="0.8"
-                android:background="@drawable/btn_arrived"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/margin1"
+                android:background="@drawable/btn_arrived_blue"
+                android:fontFamily="Montserrat"
                 android:gravity="center"
-                android:text="Arrived"
+                android:text="Arrived   "
                 android:textColor="#fff"
-                android:textSize="@dimen/h2"
-                android:textStyle="bold" />
+                android:textSize="@dimen/h2" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
+        <!--confirm btn-->
         <RelativeLayout
             android:id="@+id/linPDFull"
             android:layout_width="match_parent"
@@ -244,77 +255,100 @@
                     android:id="@+id/btnPDCamera1"
                     android:layout_width="75dp"
                     android:layout_height="80dp"
-                    android:scaleType="fitCenter"
                     android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/camera" />
 
                 <ImageButton
                     android:id="@+id/btnPDCamera2"
                     android:layout_width="75dp"
                     android:layout_height="80dp"
-                    android:scaleType="fitCenter"
                     android:layout_marginLeft="5dp"
                     android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/camera" />
 
                 <ImageButton
                     android:id="@+id/btnPDCamera3"
                     android:layout_width="75dp"
                     android:layout_height="80dp"
-                    android:scaleType="fitCenter"
                     android:layout_marginLeft="5dp"
                     android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/camera" />
 
                 <ImageButton
                     android:id="@+id/btnPDCamera4"
                     android:layout_width="75dp"
                     android:layout_height="80dp"
-                    android:scaleType="fitCenter"
                     android:layout_marginLeft="5dp"
                     android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/camera" />
             </LinearLayout>
 
 
             <Button
                 android:id="@+id/btnPDSignature"
-                android:layout_width="150sp"
+                android:layout_width="160sp"
                 android:layout_height="wrap_content"
-               android:layout_below="@id/linCamera"
+                android:layout_below="@id/linCamera"
                 android:layout_marginLeft="@dimen/margin1"
                 android:alpha="0.8"
-                android:background="@drawable/btn_blue"
+                android:background="@drawable/btn_signature"
+                android:fontFamily="Montserrat"
                 android:text="Signature"
-                android:textColor="#fff"
-                android:textStyle="bold" />
+                android:textColor="#fff" />
 
             <Button
                 android:id="@+id/btnPDReturn"
-                android:layout_width="150dp"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/linCamera"
                 android:layout_alignParentRight="true"
+                android:layout_below="@id/linCamera"
                 android:layout_marginLeft="@dimen/margin1"
                 android:layout_marginRight="@dimen/margin1"
                 android:alpha="0.8"
-                android:background="@drawable/btn_blue"
+                android:background="@drawable/btn_retrun_yellow"
+                android:fontFamily="Montserrat"
                 android:text="Return"
-                android:textColor="#fff"
-                android:textStyle="bold" />
+                android:textColor="#fff" />
 
-            <Button
-                android:background="@drawable/btn_confirm"
-                android:textColor="#fff"
-                android:textStyle="bold"
-                android:id="@+id/btnPDConfirm"
-                android:layout_width="match_parent"
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/btnPDSignature"
-                android:layout_marginLeft="@dimen/margin1"
-                android:layout_marginRight="@dimen/margin1"
-                android:gravity="center"
-                android:text="@string/confirm_departure" />
+                >
+
+
+
+                <Button
+                    android:id="@+id/btnPDConfirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginLeft="@dimen/margin1"
+                    android:layout_marginRight="@dimen/margin1"
+                    android:background="@drawable/btn_confirm_green"
+                    android:fontFamily="Montserrat"
+                    android:gravity="center"
+                    android:text="@string/confirm_departure"
+                    android:textColor="#fff" />
+
+<Button
+    android:background="@drawable/gps"
+    android:layout_centerInParent="true"
+    android:layout_width="25dp"
+    android:layout_alignParentRight="true"
+    android:layout_marginRight="50dp"
+    android:layout_height="35dp"
+
+    />
+
+
+            </RelativeLayout>
+
 
         </RelativeLayout>
 

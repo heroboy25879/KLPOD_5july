@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_blue"
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/linRCButtom"
-        android:scrollbars="vertical"
-        >
+        android:scrollbars="vertical">
 
 
         <LinearLayout
@@ -25,8 +26,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin1"
                 android:text="Return Cart"
-                android:textStyle="bold"
-                android:textSize="@dimen/h1" />
+                android:textSize="@dimen/h1"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -39,8 +40,7 @@
 
                     android:layout_marginLeft="@dimen/margin2"
                     android:text="Store Name : "
-                    android:textSize="@dimen/h3"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/h3" />
 
                 <TextView
                     android:id="@+id/txtRTStoreName"
@@ -84,8 +84,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/margin1"
                     android:layout_marginBottom="@dimen/margin1"
+                    android:layout_marginRight="@dimen/margin1"
                     android:text="QTY"
                     android:textSize="@dimen/h3"
 
@@ -93,16 +93,16 @@
             </RelativeLayout>
 
             <ListView
+                android:layout_marginLeft="@dimen/margin1"
+                android:layout_marginRight="@dimen/margin1"
                 android:id="@+id/lvRCContainer"
                 android:layout_width="match_parent"
                 android:layout_height="420dp"
-                android:background="@drawable/bgpd2"
-                android:scrollbars="vertical"
-                ></ListView>
+                android:background="@drawable/pn_white"
+                android:scrollbars="vertical"></ListView>
         </LinearLayout>
 
     </ScrollView>
-
 
 
     <LinearLayout
@@ -112,22 +112,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:gravity="center"
-        >
+        android:gravity="center">
 
 
         <Button
-            android:textColor="#fff"
-            android:textStyle="bold"
-            android:text="Finish"
-            android:gravity="center"
-            android:background="@drawable/btn_blue"
-
             android:id="@+id/btnRTFinish"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
 
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_signature"
+
+            android:gravity="center"
+            android:text="Finish"
+            android:textColor="#fff" />
+    </LinearLayout>
 
 
 </RelativeLayout>

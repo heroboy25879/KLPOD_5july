@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.PersistableBundle;
@@ -20,6 +21,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -66,6 +69,7 @@ public class PlanDetailActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_plan_detail);
+
 
         DeliveryDetailNo = getIntent().getStringExtra("DeliveryDetailNo");
         vehiclesCode = getIntent().getStringExtra("VehiclesCode");
@@ -294,6 +298,7 @@ public class PlanDetailActivity extends AppCompatActivity{
             if(jsonArray.length() > 0) {
                 Toast.makeText(PlanDetailActivity.this,"Logout.",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(PlanDetailActivity.this, MainActivity.class));
+                finish();
             }
             return true;
         }
@@ -544,7 +549,7 @@ public class PlanDetailActivity extends AppCompatActivity{
 
     private  void setLayoutVisibility(String ArrivalCheck)
     {
-        LinearLayout arrivedLinearLayout = findViewById(R.id.linPDBelow);
+        RelativeLayout arrivedLinearLayout = findViewById(R.id.linPDBelow);
         RelativeLayout fullRelativeLayout = findViewById(R.id.linPDFull);
 
         if(Boolean.valueOf(ArrivalCheck))

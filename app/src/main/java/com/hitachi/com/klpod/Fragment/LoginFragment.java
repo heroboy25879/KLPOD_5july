@@ -99,8 +99,10 @@ public class LoginFragment extends Fragment {
                             case  "Duplicate" :  masterAlert.normalDialog("Warning!", "Duplicate login! Please logout");
                                 break;
                             case  "Invalid" : masterAlert.normalDialog("Warning!", "Invalid Username or Password");
+
+                                passEditText.setText("");
                                 break;
-                            case "NORegister" : masterAlert.normalDialog("Warning!", "This mobile not register yet.");
+                            case "NORegister" : masterAlert.normalDialog("Warning!", "This mobile not registered yet.\n Please register IMEI before use");
                                 break;
                             default: masterAlert.normalDialog("Warning!", "Cannot Login! Please try again.");
                                 break;
